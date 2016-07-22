@@ -17,6 +17,7 @@ if [ -z ${GO_PIPELINE_NAME} ];then
     exit 0
 fi
 
-echo ">>> curl -X POST ${GOCD_SERVER_URL}/api/stages/${GO_PIPELINE_NAME}/${GO_STAGE_NAME}/cancel"
+echo ">>> curl -H 'Confirm: true' -X POST ${GOCD_SERVER_URL}/api/stages/${GO_PIPELINE_NAME}/${GO_STAGE_NAME}/cancel"
 curl -s "${GOCD_SERVER_URL}/api/stages/${GO_PIPELINE_NAME}/${GO_STAGE_NAME}/cancel" \
+      -H 'Confirm: true' \
       ${GOCD_AUTH} -X POST
