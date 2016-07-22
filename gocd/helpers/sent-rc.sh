@@ -1,6 +1,9 @@
 #!/bin/bash
 set -ex
 
+if [ "X${GOCD_SERVER_URL}" == "X" ];then
+    export GOCD_SERVER_URL=http://gocd-server:8153/go
+fi
 
 if [ "X${RC_OK}" != "Xtrue" ];then
     export RC_ATT_COLOR=#cc0000
