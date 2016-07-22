@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [ "X${GOCD_SERVER_URL}" == "X" ];then
+    export GOCD_SERVER_URL=http://gocd-server:8153/go
+fi
+
 if [ ! -z ${GOCD_CREDENTIALS} ];then
     GOCD_AUTH="-u '${GOCD_CREDENTIALS}'"
 fi
@@ -13,6 +17,6 @@ if [ -z ${GO_PIPELINE_NAME} ];then
     exit 0
 fi
 
-echo ">>> curl -X POST http://gocd-server.node.consul:8153/go/api/stages/${GO_PIPELINE_NAME}/${GO_STAGE_NAME}/cancel"
-curl "http://gocd-server.node.consul:8153/go/api/stages/${GO_PIPELINE_NAME}/${GO_STAGE_NAME}/cancel" \
+echo ">>> curl -X POST ${GOCD_SERVER_URL}/api/stages/${GO_PIPELINE_NAME}/${GO_STAGE_NAME}/cancel"
+curl -s "${GOCD_SERVER_URL}/api/stages/${GO_PIPELINE_NAME}/${GO_STAGE_NAME}/cancel" \
       ${GOCD_AUTH} -X POST
