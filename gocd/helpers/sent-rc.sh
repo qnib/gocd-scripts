@@ -37,6 +37,15 @@ elif [ $(echo ${BUILD_TRIGGER} |awk '{print $1}') == "triggered" ];then
     "text":"${BUILD_TRIGGER}","attachments":[]
 }
 EOF
+else
+  cat << EOF > /tmp/msg.json
+{
+    "username": "${GO_PIPELINE_NAME}",
+    "icon_url":"${RC_ICON_URL}",
+    "text":"${BUILD_TRIGGER}","attachments":[]
+}
+EOF
+
 fi
 
 
